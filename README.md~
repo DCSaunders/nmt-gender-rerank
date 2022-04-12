@@ -1,0 +1,28 @@
+# nmt-gender-rerank
+Scripts and nbest lists for "First the worst: Finding better gender translations during beam search" (Findings of ACL 2022) - to be made available by ACL2022 (05/22)
+Requirements: fast_align (Dyer et al 2013) https://github.com/clab/fast_align must be built and an environment variable FAST_ALIGN_BASE defined that points to its root directory, e.g.:
+
+export FAST_ALIGN_BASE=/<...>/fast_align
+
+Python package mosestokenizer is required. Spacy and DeMorphy are required for Spanish and German evaluation. Experiments in paper conducted with spacy version 3.1.3.
+
+Run:
+./rerank_nbest.sh LANG WDIR NBEST-LIST TAGGED-SOURCE 1BEST-OUTPUT-FILE
+
+* LANG: two-letter abbreviation for target language. Current implementation supports de, he, es.
+
+* WDIR: 	    a working directory where fastalign files will be output. Directory will be created if it does not exist.
+* NBEST-LIST: 	    a file containing an nbest list in the target language, consisting of three columns with a triple-pipe ("|||") 
+	    	    delimiter. First column contains sentence index, second column contains target-language hypotheses, 
+		    third column contains score (higher is better)
+* TAGGED-SOURCE:    a file containing three tab-delimited columns conveying gender information about the source sentence. 
+  		    first column contains gender to search for. second column contains the entity to identify gender for,
+		    which may be provided as oracle information or identified by automatic coreference resolution.
+		    The entity may contain multiple words (e.g. "the doctor" or "all teachers" or "John Smith").
+		    There may also be multiple entities per sentence, which should be pipe-separated (e.g. "the doctor|who".
+		    Third column contains source sentence (which is tokenized internally).
+*1BEST-OUTPUT-FILE: Path to where the 1-best reranked selection (text only) should be output
+
+
+Example usage with provided files: 
+./rerank_nbest.sh es tmp  nbest-lists/enes.constrainnbest.20  tagged-source/winomt-en-entity tmp/output.winomt.enes.20.constrain.rerank.oracle

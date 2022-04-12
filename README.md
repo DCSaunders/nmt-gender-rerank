@@ -8,14 +8,16 @@ Neural machine translation inference procedures like beam search generate the mo
 Most approaches to this problem adjust the training data or the model. By contrast, we experiment with simply adjusting the inference procedure. We experiment with reranking nbest lists using gender features obtained automatically from the source sentence, and applying gender constraints while decoding to improve nbest list gender diversity. We find that a combination of these techniques allows large gains in WinoMT accuracy without requiring additional bilingual data or an additional NMT model.
 
 
-##Requirements
-fast_align (Dyer et al 2013) https://github.com/clab/fast_align must be built and an environment variable FAST_ALIGN_BASE defined that points to its root directory, e.g.:
+## Requirements
+* fast_align (Dyer et al 2013) https://github.com/clab/fast_align must be built and an environment variable FAST_ALIGN_BASE defined that points to its root directory, e.g.:
 ```
 export FAST_ALIGN_BASE=/<...>/fast_align
 ```
-Python package mosestokenizer is required. Spacy and DeMorphy are required for Spanish and German evaluation. Experiments in paper conducted with spacy version 3.1.3.
+* Python package mosestokenizer.
 
-##Example use
+* Spacy and DeMorphy are required for Spanish and German evaluation. Experiments in paper conducted with spacy version 3.1.3.
+
+## Example use
 ```
 ./rerank_nbest.sh LANG WDIR NBEST-LIST TAGGED-SOURCE 1BEST-OUTPUT-FILE
 ```
@@ -31,7 +33,7 @@ Python package mosestokenizer is required. Spacy and DeMorphy are required for S
 		    The entity may contain multiple words (e.g. "the doctor" or "all teachers").
 		    There may also be multiple entities per sentence, which should be pipe-separated (e.g. "the doctor|who".
 		    Third column contains source sentence (which should be detokenized - it is tokenized internally).
-*1BEST-OUTPUT-FILE: Path to where the 1-best reranked selection (text only) should be output
+* 1BEST-OUTPUT-FILE: Path to where the 1-best reranked selection (text only) should be output
 
 
 The following command reranks the provided English-Spanish gender-constrained 20-best list using oracle entities.

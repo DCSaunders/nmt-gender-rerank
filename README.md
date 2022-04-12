@@ -46,7 +46,7 @@ The following command reranks the provided English-Spanish gender-constrained 20
 If you found the data or scripts here useful, please cite the paper:
 
 ```
-@InProceedings{saunders-etal-2020-neural,
+@InProceedings{saunders-etal-2022-first,
   author    = {Saunders, Danielle and Sallis, Rosie and Byrne, Bill},
   title     = {First the worst: Finding better gender translations during beam search},
   booktitle = "Findings of the Association for Computational Linguistics: ACL 2022",
